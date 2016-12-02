@@ -22,17 +22,6 @@ def subsetsum(inputArray, targetNum):
                 return subsetsum(inputArray[1:], targetNum)
 
 
-def subset_sum(A, target):
-    ways = [0] * (target + 1)
-    ways[0] = 1
-    ways_next = ways[:]
-    for x in A:
-        for j in range(x, target + 1):
-            ways_next[j] += ways[j - x]
-        ways = ways_next[:]
-    return ways[target]
-
-
 def subsetproblem():
     averagearray = []
     for k in range(1, N):
@@ -46,6 +35,17 @@ def subsetproblem():
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
     write("Average", averagearray)
+
+
+def subset_sum(A, target):
+    ways = [0] * (target + 1)
+    ways[0] = 1
+    ways_next = ways[:]
+    for x in A:
+        for j in range(x, target + 1):
+            ways_next[j] += ways[j - x]
+        ways = ways_next[:]
+    return ways[target]
 
 
 def dynprog():
@@ -70,7 +70,6 @@ def greedy(array, value):
     for i in reversed(array):
         if sum + i <= value:
             sum = sum + i
-            print sum
             elements.append(i)
         else:
             pass
@@ -92,3 +91,4 @@ def greedystart():
     write("AverageGreedy", averagearray)
 
 greedystart()
+print "fin"
