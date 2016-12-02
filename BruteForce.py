@@ -4,6 +4,8 @@ import timeit
 import random
 
 BITLENGTH = 1023
+N = 26
+# numbers of sets +1
 
 
 def subsetsum(inputArray, targetNum):
@@ -19,9 +21,10 @@ def subsetsum(inputArray, targetNum):
             else:
                 return subsetsum(inputArray[1:], targetNum)
 
+
 def subsetproblem():
     averagearray = []
-    for k in range(1, 26):
+    for k in range(1, N):
         y = []
         for i in range(1000):
             testset = randomSet(k)
