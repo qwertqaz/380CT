@@ -1,5 +1,10 @@
 from RandomSetGenerator import randomSet
+from createCSV import write
 import timeit
+import random
+
+BITLENGTH = 1023
+
 
 def subsetsum(inputArray, targetNum):
     if len(inputArray) == 0:
@@ -14,11 +19,16 @@ def subsetsum(inputArray, targetNum):
             else:
                 return subsetsum(inputArray[1:], targetNum)
 
-
-testset = randomSet(22)
-
-start_time = timeit.default_timer()
-print subsetsum(testset, 15)
-elapsed = timeit.default_timer() - start_time
-
-print elapsed
+def subsetproblem():
+    averagearray = []
+    for k in range(1, 26):
+        y = []
+        for i in range(1000):
+            testset = randomSet(k)
+            start_time = timeit.default_timer()
+            subsetsum(testset, random.randint(0, BITLENGTH))
+            elapsed = timeit.default_timer() - start_time
+            y.append(elapsed)
+        avg = sum(y) / float(len(y))
+        averagearray.append(avg)
+    write("Average", averagearray)
