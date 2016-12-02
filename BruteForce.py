@@ -1,3 +1,6 @@
+from RandomSetGenerator import randomSet
+import timeit
+
 def subsetsum(inputArray, targetNum):
     if len(inputArray) == 0:
         return None
@@ -11,4 +14,11 @@ def subsetsum(inputArray, targetNum):
             else:
                 return subsetsum(inputArray[1:], targetNum)
 
-print subsetsum([1, 100, 10000, 4, 6, 9, 1, 5, 8, 0], 15)
+
+testset = randomSet(22)
+
+start_time = timeit.default_timer()
+print subsetsum(testset, 15)
+elapsed = timeit.default_timer() - start_time
+
+print elapsed
