@@ -93,7 +93,7 @@ def greedystart():
     write("AverageGreedy", averagearray)
 
 
-def synaasjkhdjhagsbdjahsbdjahsbdjhabdsjhasbh(array, value):
+def simulatedAnnealing(array, value):
     best = 0
     print array
     for t in range(11):
