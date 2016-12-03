@@ -122,17 +122,19 @@ def synapticAutism(array, value):
 
 
 def synapticAutism(array, value):
-    sum = 0
     best = 0
     print array
-    for t in range(101):
+    for t in range(11):
+        sum = 0
+        print "allah"
         testarray = array[:]
         for i in range(len(array)):
             randomnum = random.randint(0, len(testarray)-1)
             print testarray
-            print sum
+            print best
             if sum + testarray[randomnum] <= value:
                 sum += testarray[randomnum]
+                print testarray[randomnum]
                 testarray.pop(randomnum)
             if sum == value:
                 return "wow"
