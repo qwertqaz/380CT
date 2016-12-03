@@ -71,6 +71,8 @@ def greedy(array, value):
         if sum + i <= value:
             sum = sum + i
             elements.append(i)
+            # Remove the element that is added to the sum
+            # del testarray[randomnum]
         else:
             pass
     return sum, elements
@@ -90,5 +92,54 @@ def greedystart():
         averagearray.append(avg)
     write("AverageGreedy", averagearray)
 
-greedystart()
-print "fin"
+"""
+def synapticAutism(array, value):
+    for i in range(101):
+        numberofsets = random.randint(0, len(array))
+        total = 0
+        oldtotal = 0
+        print "v = ", value
+
+        for k in range(numberofsets):
+            total += array[k]
+
+        print "t = ", total
+
+        if total == value:
+            return True
+
+        if total > value:
+            total = 0
+
+        elif total < oldtotal:
+            oldtotal = total
+
+        else:
+            print "nigga"
+            continue
+    return oldtotal
+"""
+
+
+def synapticAutism(array, value):
+    sum = 0
+    best = 0
+    print array
+    for t in range(101):
+        testarray = array[:]
+        for i in range(len(array)):
+            randomnum = random.randint(0, len(testarray)-1)
+            print testarray
+            print sum
+            if sum + testarray[randomnum] <= value:
+                sum += testarray[randomnum]
+                testarray.pop(randomnum)
+            if sum == value:
+                return "wow"
+            if sum > best:
+                best = sum
+    return best, value, array
+
+#print synapticAutism(randomSet(6), random.randint(0, BITLENGTH))
+print synapticAutism([531, 553, 180, 520, 750, 666], 949)
+
