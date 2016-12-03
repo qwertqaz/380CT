@@ -34,7 +34,7 @@ def exhaustive():
             y.append(elapsed)
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
-    write("AverageBF", averagearray)
+    write("AverageBF" + str(BITLENGTH) + str(N), averagearray)
 
 
 def subset_sum(A, target):
@@ -60,7 +60,7 @@ def dynprog():
             y.append(elapsed)
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
-    write("Averagedyn", averagearray)
+    write("Averagedyn" + str(BITLENGTH) + str(N), averagearray)
 
 
 def greedy(array, value):
@@ -90,7 +90,7 @@ def greedystart():
             y.append(elapsed)
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
-    write("AverageGreedy", averagearray)
+    write("AverageGreedy" + str(BITLENGTH) + str(N), averagearray)
 
 
 def simulatedAnnealing(array, value, loops):
@@ -110,9 +110,9 @@ def simulatedAnnealing(array, value, loops):
     return best, value
 
 
-def spastic():
+def runsimulatedAnnealing():
     arrayofpercent = []
-    for k in range(1,26):
+    for k in range(1, N):
         for i in range(1000):
             testset = randomSet(20)
             # N, set size = 20
@@ -122,6 +122,9 @@ def spastic():
             except:
                 percent = 0
             arrayofpercent.append(percent)
-        write2("spastic"+str(k), arrayofpercent, k)
+        write2("simulatedAnnealing"+str(k), arrayofpercent, k)
 
-spastic()
+
+exhaustive()
+dynprog()
+greedystart()
