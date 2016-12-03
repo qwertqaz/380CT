@@ -4,7 +4,7 @@ import timeit
 import random
 
 BITLENGTH = 1023
-N = 22
+N = 12
 # numbers of sets +1
 
 
@@ -22,7 +22,7 @@ def subsetsum(inputArray, targetNum):
                 return subsetsum(inputArray[1:], targetNum)
 
 
-def subsetproblem():
+def exhaustive():
     averagearray = []
     for k in range(1, N):
         y = []
@@ -34,7 +34,7 @@ def subsetproblem():
             y.append(elapsed)
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
-    write("Average", averagearray)
+    write("AverageBF", averagearray)
 
 
 def subset_sum(A, target):
@@ -92,36 +92,8 @@ def greedystart():
         averagearray.append(avg)
     write("AverageGreedy", averagearray)
 
-"""
-def synapticAutism(array, value):
-    for i in range(101):
-        numberofsets = random.randint(0, len(array))
-        total = 0
-        oldtotal = 0
-        print "v = ", value
 
-        for k in range(numberofsets):
-            total += array[k]
-
-        print "t = ", total
-
-        if total == value:
-            return True
-
-        if total > value:
-            total = 0
-
-        elif total < oldtotal:
-            oldtotal = total
-
-        else:
-            print "nigga"
-            continue
-    return oldtotal
-"""
-
-
-def synapticAutism(array, value):
+def synaasjkhdjhagsbdjahsbdjahsbdjhabdsjhasbh(array, value):
     best = 0
     print array
     for t in range(11):
@@ -142,6 +114,7 @@ def synapticAutism(array, value):
                 best = sum
     return best, value, array
 
-#print synapticAutism(randomSet(6), random.randint(0, BITLENGTH))
-print synapticAutism([531, 553, 180, 520, 750, 666], 949)
+# print synapticAutism(randomSet(6), random.randint(0, BITLENGTH))
+# print synapticAutism([531, 553, 180, 520, 750, 666], 949)
+
 
