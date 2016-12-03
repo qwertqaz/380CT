@@ -1,10 +1,10 @@
 from RandomSetGenerator import randomSet
-from createCSV import write
+from createCSV import write, write2
 import timeit
 import random
 
 BITLENGTH = 1023
-N = 12
+N = 20
 # numbers of sets +1
 
 
@@ -93,28 +93,35 @@ def greedystart():
     write("AverageGreedy", averagearray)
 
 
-def simulatedAnnealing(array, value):
+def simulatedAnnealing(array, value, loops):
     best = 0
-    print array
-    for t in range(11):
+    for t in range(loops):
         sum = 0
-        print "allah"
         testarray = array[:]
         for i in range(len(array)):
             randomnum = random.randint(0, len(testarray)-1)
-            print testarray
-            print best
             if sum + testarray[randomnum] <= value:
                 sum += testarray[randomnum]
-                print testarray[randomnum]
                 testarray.pop(randomnum)
             if sum == value:
-                return "wow"
+                return sum, value
             if sum > best:
                 best = sum
-    return best, value, array
-
-# print synapticAutism(randomSet(6), random.randint(0, BITLENGTH))
-# print synapticAutism([531, 553, 180, 520, 750, 666], 949)
+    return best, value
 
 
+def spastic():
+    arrayofpercent = []
+    for k in range(1,26):
+        for i in range(1000):
+            testset = randomSet(20)
+            # N, set size = 20
+            gotten, value = simulatedAnnealing(randomSet(20), random.randint(0, BITLENGTH), k)
+            try:
+                percent = gotten / float(value) * 100
+            except:
+                percent = 0
+            arrayofpercent.append(percent)
+        write2("spastic"+str(k), arrayofpercent, k)
+
+spastic()
