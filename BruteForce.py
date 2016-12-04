@@ -3,7 +3,7 @@ from createCSV import write, write2
 import timeit
 import random
 
-BITLENGTH = 1023
+BITLENGTH = 127
 N = 20
 # numbers of sets +1
 
@@ -24,7 +24,8 @@ def subsetsum(inputArray, targetNum):
 
 def exhaustive():
     averagearray = []
-    for k in range(1, N):
+    for k in range(N, N+1):
+        print k
         y = []
         for i in range(1000):
             testset = randomSet(k)
@@ -34,7 +35,7 @@ def exhaustive():
             y.append(elapsed)
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
-    write("AverageBF" + str(BITLENGTH) + str(N), averagearray)
+    write("AverageBF" + '-' + str(BITLENGTH) + '-' + str(N), averagearray)
 
 
 def subset_sum(A, target):
@@ -50,7 +51,7 @@ def subset_sum(A, target):
 
 def dynprog():
     averagearray = []
-    for k in range(1, N):
+    for k in range(N, N+1):
         y = []
         for i in range(1000):
             testset = randomSet(k)
@@ -60,7 +61,7 @@ def dynprog():
             y.append(elapsed)
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
-    write("Averagedyn" + str(BITLENGTH) + str(N), averagearray)
+    write("Averagedyn" + '-' + str(BITLENGTH) + '-' + str(N), averagearray)
 
 
 def greedy(array, value):
@@ -80,7 +81,7 @@ def greedy(array, value):
 
 def greedystart():
     averagearray = []
-    for k in range(1, N):
+    for k in range(N, N+1):
         y = []
         for i in range(1000):
             testset = randomSet(k)
@@ -90,7 +91,7 @@ def greedystart():
             y.append(elapsed)
         avg = sum(y) / float(len(y))
         averagearray.append(avg)
-    write("AverageGreedy" + str(BITLENGTH) + str(N), averagearray)
+    write("AverageGreedy" + '-' + str(BITLENGTH) + '-' + str(N), averagearray)
 
 
 def simulatedAnnealing(array, value, loops):
@@ -124,7 +125,47 @@ def runsimulatedAnnealing():
             arrayofpercent.append(percent)
         write2("simulatedAnnealing"+str(k), arrayofpercent, k)
 
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 127
 
 exhaustive()
 dynprog()
 greedystart()
+BITLENGTH = 255
+
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 511
+
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 1023
+
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 2047
+
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 4095
+
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 8191
+
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 16383
+
+exhaustive()
+dynprog()
+greedystart()
+BITLENGTH = 32767
