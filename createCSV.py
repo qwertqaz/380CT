@@ -14,3 +14,10 @@ def write2(name, array, length):
     for i in array:
         fo.write(str(length) + ',' + str(i) + ',' + '\n')
     fo.close()
+
+
+def write3(name, array, length):
+    fo = open(name + ".csv", "a")
+    avg = sum(array) / float(len(array))
+    fo.write(str(length) + ',' + str(avg) + ',' + '\n')
+    fo.close()

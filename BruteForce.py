@@ -1,10 +1,10 @@
 from RandomSetGenerator import randomSet
-from createCSV import write, write2
+from createCSV import write, write2, write3
 import timeit
 import random
 
-BITLENGTH = 127
-N = 20
+BITLENGTH = 1023
+N = 1
 # numbers of sets +1
 
 
@@ -67,31 +67,29 @@ def dynprog():
 def greedy(array, value):
     sum = 0
     elements = []
-    array = sorted(array)
-    for i in reversed(array):
+    array2 = sorted(array[:])
+    for i in reversed(array2):
         if sum + i <= value:
             sum = sum + i
             elements.append(i)
-            # Remove the element that is added to the sum
-            # del testarray[randomnum]
+            array2.remove(i)
         else:
             pass
-    return sum, elements
+    return sum, value
 
 
 def greedystart():
-    averagearray = []
-    for k in range(N, N+1):
-        y = []
+    for k in range(1, 501):
+        arrayofpercent = []
         for i in range(1000):
             testset = randomSet(k)
-            start_time = timeit.default_timer()
-            greedy(testset, random.randint(0, BITLENGTH))
-            elapsed = timeit.default_timer() - start_time
-            y.append(elapsed)
-        avg = sum(y) / float(len(y))
-        averagearray.append(avg)
-    write("AverageGreedy" + '-' + str(BITLENGTH) + '-' + str(N), averagearray)
+            gotten, value = greedy(testset, random.randint(0, BITLENGTH))
+            try:
+                percent = gotten / float(value) * 100
+            except:
+                percent = 0
+            arrayofpercent.append(percent)
+        write3("AverageGreedy" + '-' + str(BITLENGTH) + '-' + str(N), arrayofpercent, k)
 
 
 def simulatedAnnealing(array, value, loops):
@@ -114,6 +112,7 @@ def simulatedAnnealing(array, value, loops):
 def runsimulatedAnnealing():
     arrayofpercent = []
     for k in range(1, N):
+        print k
         for i in range(1000):
             testset = randomSet(20)
             # N, set size = 20
@@ -123,49 +122,8 @@ def runsimulatedAnnealing():
             except:
                 percent = 0
             arrayofpercent.append(percent)
-        write2("simulatedAnnealing"+str(k), arrayofpercent, k)
+        write2("simulatedAnnealing"+str(BITLENGTH)+str(k), arrayofpercent, k)
 
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 127
 
-exhaustive()
-dynprog()
+BITLENGTH = BITLENGTH#*2+1
 greedystart()
-BITLENGTH = 255
-
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 511
-
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 1023
-
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 2047
-
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 4095
-
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 8191
-
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 16383
-
-exhaustive()
-dynprog()
-greedystart()
-BITLENGTH = 32767
