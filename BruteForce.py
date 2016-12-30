@@ -1,5 +1,6 @@
 from RandomSetGenerator import randomSet
 from createCSV import write, write2, write3
+from random import randint
 import timeit
 import random
 
@@ -91,6 +92,51 @@ def greedystart():
             arrayofpercent.append(percent)
         write3("AverageGreedy" + '-' + str(BITLENGTH) + '-' + str(N), arrayofpercent, k)
 
+def grasp(array, target):
+    #Break set into several subsets or 'neighbourhoods', search random neighbourhood and it's neighbours for highest number
+    #If higher number found, search their neighbours too. If no improvement is found, jump to random neighborhood again and repeat until finished.
+    array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 6, 5, 4, 3, 2, 1]
+    sum = len(array)
+    elements = []
+    while sum < target:
+        optimisedChoice = optimisedSearch(array)
+        if sum + array[optimisedChoice] <= target:
+            sum = sum + array[optimisedChoice]
+            elements.append(array[optimisedChoice])
+            array.pop(optimisedChoice)
+    return sum, target
+
+def optimisedSearch(array):
+    #array = [1,2,3,4,5,6,7,8,9,7,6,5,4,3,2,1]
+    print str(len(array))
+    neighbourhood = randint(1, len(array) - 1)
+    bottomNeighbour = array[neighbourhood - 1]
+    middleNeighbour = array[neighbourhood]
+    topNeighbour = array[neighbourhood + 1]
+
+    neighbourhoodToFilter = {neighbourhood - 1 : bottomNeighbour, neighbourhood : middleNeighbour, neighbourhood + 1 : topNeighbour}
+    print "Neighbourhood " + str(neighbourhood)
+    print "Bottom " + str(bottomNeighbour)
+    print "Middle " + str(middleNeighbour)
+    print "Top " + str(topNeighbour)
+    print "Dictionary test " + str(max(neighbourhoodToFilter, key=neighbourhoodToFilter.get))
+    return max(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
+
+
+def graspStart():
+    for k in range(1, 501):
+        percentageAccuracy = []
+        for i in range(1000):
+            testSet = randomSet(k)
+            gotten, value = grasp(testSet, random.randint(0,BITLENGTH))
+            try:
+                percent = gotten / float(value) * 100
+            except:
+                percent = 0
+            percentageAccuracy.append(percent)
+
+
+
 
 def simulatedAnnealing(array, value, loops):
     best = 0
@@ -126,4 +172,4 @@ def runsimulatedAnnealing():
 
 
 BITLENGTH = BITLENGTH#*2+1
-greedystart()
+graspStart()
