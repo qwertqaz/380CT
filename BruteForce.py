@@ -116,10 +116,14 @@ def optimisedSearch(array, target, sum):
 
     neighbourhoodToFilter = {neighbourhood - 1 : bottomNeighbour, neighbourhood : middleNeighbour, neighbourhood + 1 : topNeighbour}
 
+    median = numpy.median(neighbourhoodToFilter.values())
+
+    medianKey = [key for key, value in neighbourhoodToFilter.iteritems() if value == median][0]
+
     if array[max(neighbourhoodToFilter, key=neighbourhoodToFilter.get)] + sum <= target:
         return max(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
-    elif array[numpy.median(neighbourhoodToFilter, key=neighbourhoodToFilter.get)] + sum <= target:
-        return numpy.median(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
+    elif median + sum <= target:
+        return medianKey
     elif array[min(neighbourhoodToFilter, key=neighbourhoodToFilter.get)] + sum <= target:
         return min(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
 
