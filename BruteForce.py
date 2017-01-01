@@ -3,6 +3,7 @@ from createCSV import write, write2, write3
 from random import randint
 import timeit
 import random
+import numpy
 
 BITLENGTH = 1023
 N = 1
@@ -97,15 +98,17 @@ def grasp(array, target):
     #If higher number found, search their neighbours too. If no improvement is found, jump to random neighborhood again and repeat until finished.
     sum = 0
     elements = []
-    while sum < target & len(array) >= 3:
-        optimisedChoice = optimisedSearch(array)
-        if sum + array[optimisedChoice] <= target:
+    while ((sum < target) & (len(array) >= 3)):
+        optimisedChoice = optimisedSearch(array, target, sum)
+        if min(array) >= target | (optimisedChoice == 0 & len(array) == 3):
+            return 0, target
+        elif sum + array[optimisedChoice] <= target:
             sum = sum + array[optimisedChoice]
             elements.append(array[optimisedChoice])
             array.pop(optimisedChoice)
     return sum, target
 
-def optimisedSearch(array):
+def optimisedSearch(array, target, sum):
     #print str(len(array))
     neighbourhood = randint(1, len(array) - 2)
     bottomNeighbour = array[neighbourhood - 1]
@@ -113,18 +116,20 @@ def optimisedSearch(array):
     topNeighbour = array[neighbourhood + 1]
 
     neighbourhoodToFilter = {neighbourhood - 1 : bottomNeighbour, neighbourhood : middleNeighbour, neighbourhood + 1 : topNeighbour}
-    '''print "Neighbourhood " + str(neighbourhood)
-    print "Bottom " + str(bottomNeighbour)
-    print "Middle " + str(middleNeighbour)
-    print "Top " + str(topNeighbour)
-    print "Dictionary test " + str(max(neighbourhoodToFilter, key=neighbourhoodToFilter.get))'''
-    return max(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
 
+    if max(neighbourhoodToFilter, key=neighbourhoodToFilter.get) + sum <= target:
+        return max(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
+    elif numpy.median(neighbourhoodToFilter, key=neighbourhoodToFilter.get) + sum <= target:
+        return numpy.median(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
+    elif min(neighbourhoodToFilter, key=neighbourhoodToFilter.get) + sum <= target:
+        return min(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
+
+    return 0
 
 def graspStart():
     for k in range(1, 501):
         percentageAccuracy = []
-        for i in range(1000):
+        for i in range(1):
             testSet = randomSet(k)
             gotten, value = grasp(testSet, random.randint(0,BITLENGTH))
             try:
