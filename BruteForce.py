@@ -101,7 +101,7 @@ def grasp(array, target):
     while ((sum < target) & (len(array) >= 3)):
         optimisedChoice = optimisedSearch(array, target, sum)
         if min(array) >= target | (optimisedChoice == 0 & len(array) == 3):
-            return 0, target
+            return sum, target
         elif sum + array[optimisedChoice] <= target:
             sum = sum + array[optimisedChoice]
             elements.append(array[optimisedChoice])
@@ -109,7 +109,6 @@ def grasp(array, target):
     return sum, target
 
 def optimisedSearch(array, target, sum):
-    #print str(len(array))
     neighbourhood = randint(1, len(array) - 2)
     bottomNeighbour = array[neighbourhood - 1]
     middleNeighbour = array[neighbourhood]
