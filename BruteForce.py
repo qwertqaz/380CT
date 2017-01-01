@@ -95,7 +95,6 @@ def greedystart():
 def grasp(array, target):
     #Break set into several subsets or 'neighbourhoods', search random neighbourhood and it's neighbours for highest number
     #If higher number found, search their neighbours too. If no improvement is found, jump to random neighborhood again and repeat until finished.
-    array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 6, 5, 4, 3, 2, 1]
     sum = 0
     elements = []
     while sum < target & len(array) >= 3:
@@ -107,18 +106,18 @@ def grasp(array, target):
     return sum, target
 
 def optimisedSearch(array):
-    print str(len(array))
+    #print str(len(array))
     neighbourhood = randint(1, len(array) - 2)
     bottomNeighbour = array[neighbourhood - 1]
     middleNeighbour = array[neighbourhood]
     topNeighbour = array[neighbourhood + 1]
 
     neighbourhoodToFilter = {neighbourhood - 1 : bottomNeighbour, neighbourhood : middleNeighbour, neighbourhood + 1 : topNeighbour}
-    print "Neighbourhood " + str(neighbourhood)
+    '''print "Neighbourhood " + str(neighbourhood)
     print "Bottom " + str(bottomNeighbour)
     print "Middle " + str(middleNeighbour)
     print "Top " + str(topNeighbour)
-    print "Dictionary test " + str(max(neighbourhoodToFilter, key=neighbourhoodToFilter.get))
+    print "Dictionary test " + str(max(neighbourhoodToFilter, key=neighbourhoodToFilter.get))'''
     return max(neighbourhoodToFilter, key=neighbourhoodToFilter.get)
 
 
@@ -133,6 +132,7 @@ def graspStart():
             except:
                 percent = 0
             percentageAccuracy.append(percent)
+        write3("AverageGRASP" + '-' + str(BITLENGTH) + '-' + str(N), percentageAccuracy, k)
 
 
 
