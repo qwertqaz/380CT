@@ -96,9 +96,9 @@ def grasp(array, target):
     #Break set into several subsets or 'neighbourhoods', search random neighbourhood and it's neighbours for highest number
     #If higher number found, search their neighbours too. If no improvement is found, jump to random neighborhood again and repeat until finished.
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 6, 5, 4, 3, 2, 1]
-    sum = len(array)
+    sum = 0
     elements = []
-    while sum < target:
+    while sum < target & len(array) >= 3:
         optimisedChoice = optimisedSearch(array)
         if sum + array[optimisedChoice] <= target:
             sum = sum + array[optimisedChoice]
@@ -107,9 +107,8 @@ def grasp(array, target):
     return sum, target
 
 def optimisedSearch(array):
-    #array = [1,2,3,4,5,6,7,8,9,7,6,5,4,3,2,1]
     print str(len(array))
-    neighbourhood = randint(1, len(array) - 1)
+    neighbourhood = randint(1, len(array) - 2)
     bottomNeighbour = array[neighbourhood - 1]
     middleNeighbour = array[neighbourhood]
     topNeighbour = array[neighbourhood + 1]
