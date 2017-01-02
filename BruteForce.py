@@ -149,7 +149,7 @@ def runsimulatedAnnealing():
             testset = randomSet(20)
             # N, set size = 20
             start_time = timeit.default_timer()
-            gotten, value = simulatedAnnealing(randomSet(20), random.randint(0, BITLENGTH), k)
+            gotten, value = simulatedAnnealing(randomSet(k), random.randint(0, BITLENGTH), k)
             elapsed = timeit.default_timer() - start_time
             arrayoftime.append(elapsed)
             try:
