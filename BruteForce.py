@@ -157,7 +157,7 @@ def runsimulatedAnnealing():
             except:
                 percent = 0
             arrayofpercent.append(percent)
-        write4("simulatedAnnealing" + str(BITLENGTH) + str(k), arrayofpercent, arrayoftime, k)
+        write4("simulatedAnnealing", arrayofpercent, arrayoftime, k)
 
 
 def greedystart():
