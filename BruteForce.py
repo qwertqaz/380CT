@@ -6,7 +6,7 @@ import random
 import numpy
 
 BITLENGTH = 33000
-N = 51
+N = 101
 
 
 # numbers of sets +1
